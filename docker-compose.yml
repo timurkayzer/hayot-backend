@@ -7,6 +7,10 @@ services:
       POSTGRES_PASSWORD: '123456'
       POSTGRES_USER: postgres
       POSTGRES_DB: hayot-db
+    expose:
+      - "5433"
+    ports:
+      - "5433"
   adminer:
     image: adminer
     restart: always

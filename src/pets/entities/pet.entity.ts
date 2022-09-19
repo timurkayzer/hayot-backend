@@ -7,11 +7,32 @@ export class Pet {
     id: number;
 
     @Column()
-    firstName: string;
+    name: string;
 
     @Column()
-    lastName: string;
+    description: string;
 
-    @Column({ default: true })
-    isActive: boolean;
+    @Column()
+    excerpt: string;
+
+    @Column({ default: false })
+    adopted: boolean;
+
+    @Column({ default: false })
+    castrated: boolean;
+
+    @Column()
+    gender: string;
+
+    @Column()
+    size: string;
+
+    @Column()
+    age: number;
+
+    @Column()
+    weigth: number;
+
+    @Column()
+    height: number;
 }
