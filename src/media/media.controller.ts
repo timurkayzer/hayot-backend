@@ -5,7 +5,7 @@ import { UpdateMediaDto } from './dto/update-media.dto';
 
 @Controller('media')
 export class MediaController {
-  constructor(private readonly mediaService: MediaService) {}
+  constructor(private readonly mediaService: MediaService) { }
 
   @Post()
   create(@Body() createMediaDto: CreateMediaDto) {
@@ -19,16 +19,16 @@ export class MediaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.mediaService.findOne(+id);
+    return this.mediaService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMediaDto: UpdateMediaDto) {
-    return this.mediaService.update(+id, updateMediaDto);
+    return this.mediaService.update(id, updateMediaDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.mediaService.remove(+id);
+    return this.mediaService.remove(id);
   }
 }

@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
+import { Media, MediaDocument } from './entities/media.entity';
 
 @Injectable()
 export class MediaService {
-  create(createMediaDto: CreateMediaDto) {
-    return 'This action adds a new media';
+
+  constructor(
+    @InjectModel(Media.name) private mediaModel: Model<MediaDocument>
+  ) {
+
   }
 
-  findAll() {
-    return `This action returns all media`;
+  async create(createMediaDto: CreateMediaDto) {
+    return this.mediaModel.create(createMediaDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} media`;
+  async findAll() {
+    return this.mediaModel.find().lean();
   }
 
-  update(id: number, updateMediaDto: UpdateMediaDto) {
-    return `This action updates a #${id} media`;
+  findOne(id: string) {
+    return this.mediaModel.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} media`;
+  update(id: string, updateMediaDto: UpdateMediaDto) {
+    return this.mediaModel.findByIdAndUpdate(id, updateMediaDto);
+  }
+
+  remove(id: string) {
+    return this.mediaModel.findByIdAndDelete(id);
   }
 }

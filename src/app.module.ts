@@ -1,24 +1,22 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PetsModule } from './pets/pets.module';
 import { MediaModule } from './media/media.module';
 import { NewsModule } from './news/news.module';
 import { FilesModule } from './files/files.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '127.0.0.1',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'hayot-db',
-      entities: [],
-      synchronize: true
-    }),
+    MongooseModule.forRoot(
+      'mongodb://127.0.0.1',
+      {
+        pass: 'thisispwd',
+        user: 'mongo',
+        dbName: 'hayot-db'
+      }
+    ),
     PetsModule,
     MediaModule,
     NewsModule,
