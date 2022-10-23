@@ -13,14 +13,16 @@ export class FilesController {
       // new MaxFileSizeValidator({ maxSize: 1000 }),
     ],
   })) file: Express.Multer.File) {
-    console.log(file);
-    await this.filesService.uploadFile(file);
+    if (file.mimetype.includes('image')) {
+      file.buffer = await this.filesService.convertToWebP(file.buffer);
+      file.originalname = `${file.originalname.split('.')[0]}.webp`;
+    }
+    return await this.filesService.insertFile(file);
   }
 
   @Delete('delete/:id')
   @UseInterceptors(FileInterceptor('file'))
   async deleteFile(@Param('id') id: string) {
-    console.log(id);
-    await this.filesService.deleteFile(id);
+    return await this.filesService.deleteFile(id);
   }
 }
