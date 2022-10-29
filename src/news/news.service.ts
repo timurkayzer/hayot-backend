@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
+import { News, NewsDocument } from './entities/news.entity';
 
 @Injectable()
 export class NewsService {
-  create(createNewsDto: CreateNewsDto) {
-    return 'This action adds a new news';
+
+  constructor(
+    @InjectModel(News.name) private newsModel: Model<NewsDocument>
+  ) { }
+
+  async create(createNewsDto: CreateNewsDto) {
+    return this.newsModel.create(CreateNewsDto);
   }
 
-  findAll() {
-    return `This action returns all news`;
+  async findAll() {
+    return this.newsModel.find().lean();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} news`;
+  async findOne(id: string) {
+    return this.newsModel.findById(id);
   }
 
-  update(id: number, updateNewsDto: UpdateNewsDto) {
-    return `This action updates a #${id} news`;
+  async update(id: string, updateNewsDto: UpdateNewsDto) {
+    return this.newsModel.findByIdAndUpdate(id, updateNewsDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} news`;
+  async remove(id: string) {
+    return this.newsModel.findByIdAndDelete(id);
   }
 }
