@@ -7,6 +7,7 @@ import { NewsModule } from './news/news.module';
 import { FilesModule } from './files/files.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SwaggerModule } from '@nestjs/swagger';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { SwaggerModule } from '@nestjs/swagger';
     MediaModule,
     NewsModule,
     FilesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

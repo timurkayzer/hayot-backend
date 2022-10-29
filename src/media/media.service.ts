@@ -19,11 +19,11 @@ export class MediaService {
   }
 
   findAll() {
-    return this.mediaModel.find().lean();
+    return this.mediaModel.find().populate('img').lean();
   }
 
   findOne(id: string) {
-    return this.mediaModel.findById(id).populate('img');
+    return this.mediaModel.findById(id).populate('img').lean();
   }
 
   update(id: string, updateMediaDto: UpdateMediaDto) {

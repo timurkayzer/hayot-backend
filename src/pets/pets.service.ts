@@ -15,11 +15,11 @@ export class PetsService {
   }
 
   findAll() {
-    return this.petModel.find().lean();
+    return this.petModel.find().populate('images').lean();
   }
 
   findOne(id: string) {
-    return this.petModel.findById(id);
+    return this.petModel.findById(id).populate('images').lean();
   }
 
   update(id: string, updatePetDto: UpdatePetDto) {

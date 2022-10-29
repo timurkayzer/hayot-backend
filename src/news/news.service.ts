@@ -17,11 +17,11 @@ export class NewsService {
   }
 
   findAll() {
-    return this.newsModel.find().lean();
+    return this.newsModel.find().populate('images').lean();
   }
 
   findOne(id: string) {
-    return this.newsModel.findById(id);
+    return this.newsModel.findById(id).populate('images').lean();
   }
 
   update(id: string, updateNewsDto: UpdateNewsDto) {
