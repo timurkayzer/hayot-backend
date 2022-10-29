@@ -23,7 +23,7 @@ export class MediaService {
   }
 
   findOne(id: string) {
-    return this.mediaModel.findById(id);
+    return this.mediaModel.findById(id).populate('img');
   }
 
   update(id: string, updateMediaDto: UpdateMediaDto) {

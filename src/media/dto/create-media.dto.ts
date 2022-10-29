@@ -5,7 +5,6 @@ export class CreateMediaDto {
     title: TranslatableStringDto;
     img: string;
     color: string;
-    createdAt: Date;
 }
 
 export class WebsiteDto {
