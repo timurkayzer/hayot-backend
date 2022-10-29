@@ -6,6 +6,7 @@ import { MediaModule } from './media/media.module';
 import { NewsModule } from './news/news.module';
 import { FilesModule } from './files/files.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SwaggerModule } from '@nestjs/swagger';
 
 @Module({
   imports: [

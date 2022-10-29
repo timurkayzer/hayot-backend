@@ -2,33 +2,37 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PetsService } from './pets.service';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Pet } from './entities/pet.entity';
 
+@ApiTags('Питомцы')
 @Controller('pets')
 export class PetsController {
-  constructor(private readonly petsService: PetsService) {}
+  constructor(private readonly petsService: PetsService) { }
 
+  @ApiResponse({ type: Pet })
   @Post()
-  create(@Body() createPetDto: CreatePetDto) {
-    return this.petsService.create(createPetDto);
+  async create(@Body() createPetDto: CreatePetDto) {
+    return await this.petsService.create(createPetDto);
   }
 
   @Get()
-  findAll() {
-    return this.petsService.findAll();
+  async findAll() {
+    return await this.petsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.petsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.petsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePetDto: UpdatePetDto) {
-    return this.petsService.update(+id, updatePetDto);
+  async update(@Param('id') id: string, @Body() updatePetDto: UpdatePetDto) {
+    return await this.petsService.update(id, updatePetDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.petsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.petsService.remove(id);
   }
 }

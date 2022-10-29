@@ -14,11 +14,11 @@ export class MediaService {
 
   }
 
-  async create(createMediaDto: CreateMediaDto) {
+  create(createMediaDto: CreateMediaDto) {
     return this.mediaModel.create(createMediaDto);
   }
 
-  async findAll() {
+  findAll() {
     return this.mediaModel.find().lean();
   }
 

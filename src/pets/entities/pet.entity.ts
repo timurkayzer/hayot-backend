@@ -1,38 +1,57 @@
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { TranslatableString } from 'src/common/translatable.model';
+import { FileModel } from 'src/files/entities/file.entity';
 
-@Entity()
+export enum GenderEnum {
+    male = "m",
+    female = "f"
+}
+
+export type PetDocument = Pet & Document;
+
+@Schema({
+    timestamps: true
+})
 export class Pet {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Prop()
+    name: TranslatableString;
 
-    @Column()
-    name: string;
+    @Prop()
+    description: TranslatableString;
 
-    @Column()
-    description: string;
+    @Prop()
+    excerpt: TranslatableString;
 
-    @Column()
-    excerpt: string;
-
-    @Column({ default: false })
+    @Prop()
     adopted: boolean;
 
-    @Column({ default: false })
+    @Prop()
     castrated: boolean;
 
-    @Column()
-    gender: string;
+    @Prop({
+        enum: GenderEnum
+    })
+    gender: GenderEnum;
 
-    @Column()
+    @Prop()
     size: string;
 
-    @Column()
+    @Prop()
     age: number;
 
-    @Column()
+    @Prop()
     weigth: number;
 
-    @Column()
+    @Prop()
     height: number;
+
+    @Prop({
+        type: Array<MongooseSchema.Types.ObjectId>,
+        ref: 'FileModel'
+    })
+    files: FileModel[];
 }
+
+export const PetSchema = SchemaFactory.createForClass(Pet);

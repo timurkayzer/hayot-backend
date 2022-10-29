@@ -12,23 +12,23 @@ export class NewsService {
     @InjectModel(News.name) private newsModel: Model<NewsDocument>
   ) { }
 
-  async create(createNewsDto: CreateNewsDto) {
+  create(createNewsDto: CreateNewsDto) {
     return this.newsModel.create(CreateNewsDto);
   }
 
-  async findAll() {
+  findAll() {
     return this.newsModel.find().lean();
   }
 
-  async findOne(id: string) {
+  findOne(id: string) {
     return this.newsModel.findById(id);
   }
 
-  async update(id: string, updateNewsDto: UpdateNewsDto) {
+  update(id: string, updateNewsDto: UpdateNewsDto) {
     return this.newsModel.findByIdAndUpdate(id, updateNewsDto);
   }
 
-  async remove(id: string) {
+  remove(id: string) {
     return this.newsModel.findByIdAndDelete(id);
   }
 }

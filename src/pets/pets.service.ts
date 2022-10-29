@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreatePetDto } from './dto/create-pet.dto';
 import { UpdatePetDto } from './dto/update-pet.dto';
+import { Pet, PetDocument } from './entities/pet.entity';
 
 @Injectable()
 export class PetsService {
+
+  constructor(@InjectModel(Pet.name) private petModel: Model<PetDocument>) { }
+
   create(createPetDto: CreatePetDto) {
-    return 'This action adds a new pet';
+    return this.petModel.create(createPetDto);
   }
 
   findAll() {
-    return `This action returns all pets`;
+    return this.petModel.find().lean();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pet`;
+  findOne(id: string) {
+    return this.petModel.findById(id);
   }
 
-  update(id: number, updatePetDto: UpdatePetDto) {
-    return `This action updates a #${id} pet`;
+  update(id: string, updatePetDto: UpdatePetDto) {
+    return this.petModel.findByIdAndUpdate(id, updatePetDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pet`;
+  remove(id: string) {
+    return this.petModel.findByIdAndDelete(id);
   }
 }
