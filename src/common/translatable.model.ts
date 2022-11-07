@@ -1,4 +1,5 @@
 import { Prop } from "@nestjs/mongoose";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class TranslatableString {
     @Prop()
@@ -10,7 +11,10 @@ export class TranslatableString {
 }
 
 export class TranslatableStringDto {
+    @ApiProperty()
     ru: string;
+    @ApiProperty()
     uz: string;
+    @ApiProperty()
     en: string;
 }

@@ -1,9 +1,11 @@
 import { BadRequestException, Body, Controller, ForbiddenException, HttpCode, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
+import { ApiTags } from '@nestjs/swagger';
 import { ALREADY_REGISTERED } from './auth.constants';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 
+@ApiTags('Авторизация')
 @Controller('auth')
 export class AuthController {
 

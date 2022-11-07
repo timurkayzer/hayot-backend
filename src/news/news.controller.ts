@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { News } from './entities/news.entity';
 
 @ApiTags('Новости')
 @Controller('news')
@@ -11,6 +12,8 @@ export class NewsController {
   constructor(private readonly newsService: NewsService) { }
 
   @UseGuards(JwtAuthGuard)
+  @ApiOperation({ description: 'Создание новости' })
+  @ApiResponse({ type: [News] })
   @Post()
   async create(@Body() createNewsDto: CreateNewsDto) {
     return await this.newsService.create(createNewsDto);
